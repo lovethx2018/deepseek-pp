@@ -1,0 +1,25 @@
+name: Sync Fork 自动同步上游deepseek-pp
+on:
+  schedule:
+    # UTC时间 每天凌晨2点，对应北京时间上午10点自动执行
+    - cron: '0 2 * * *'
+  # 支持网页手动一键触发同步
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 同步上游仓库 zhu1090093659/deepseek-pp
+        uses: aormsby/Fork-Sync-With-Upstream-action@v3.4
+        with:
+          upstream_repository: zhu1090093659/deepseek-pp
+          target_branch: main
+          upstream_branch: main
+          target_sync_branch: main
+          test_mode: false
