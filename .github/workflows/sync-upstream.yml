@@ -1,9 +1,12 @@
 name: Sync Fork 自动同步上游deepseek-pp
+# 关键：赋予action写入仓库的权限，解决exit code 128
+permissions:
+  contents: write
 
 on:
   schedule:
-    - cron: '0 2 * * *' # UTC 02:00 = 北京时间10:00，每日自动同步
-  workflow_dispatch: # 允许网页手动触发同步
+    - cron: '0 2 * * *' # UTC 02:00 = 北京时间上午10点，每日自动同步
+  workflow_dispatch: # 网页手动触发开关
 
 jobs:
   sync-upstream:
